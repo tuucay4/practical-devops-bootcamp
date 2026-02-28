@@ -1,0 +1,47 @@
+footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.export-buttons {
+    display: inline-flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    background: var(--background);
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    margin: 0 auto;
+}
+
+.export-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: var(--text);
+    border-radius: 4px;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+    min-width: 60px;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.export-btn:hover {
+    background-color: var(--hover-color);
+    border-color: var(--accent-color);
+}
+
+.export-btn:active {
+    transform: translateY(1px);
+} 
