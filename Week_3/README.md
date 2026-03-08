@@ -66,7 +66,7 @@ DB_NAME=ecommercedb
 ### 5. Built Frontend
 Created `frontend/.env`:
 ```bash
-REACT_APP_API_URL=http://localhost:5000
+REACT_APP_API_URL=http://public-ip:5000
 ```
 Fixed hardcoded localhost URL in App.js:
 ```javascript
