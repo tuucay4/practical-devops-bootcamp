@@ -125,7 +125,3 @@ sudo systemctl daemon-reload           # reload after editing service files
 - Hardcoded values override environment variables and break environment-specific deployments.
 
 
-## Files
-- `Intermediate2/` — application source code
-- `backend.service` — systemd service file for Node.js backend
-- `frontend.service` — systemd service file for React frontend
