@@ -1,4 +1,4 @@
-# Week 2 — Platform Deployment with systemd
+# Week 2 — App Deployment with systemd
 Deploy a three-tier e-commerce application as Linux systemd 
 services on AWS EC2.
 
