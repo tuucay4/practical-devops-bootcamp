@@ -1,0 +1,18 @@
+[Unit]
+Description=Ecommerce Backend API
+After=network.target postgresql.service
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Intermediate2/backend
+ExecStart=/home/ubuntu/.nvm/versions/node/v20.20.1/bin/node index.js
+Restart=on-failure
+RestartSec=5
+EnvironmentFile=/home/ubuntu/Intermediate2/backend/.env
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

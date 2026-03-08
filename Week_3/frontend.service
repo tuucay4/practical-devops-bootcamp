@@ -1,0 +1,18 @@
+[Unit]
+Description=Ecommerce Frontend
+After=network.target backend.service
+Requires=backend.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/Intermediate2/frontend
+Environment=PATH=/home/ubuntu/.nvm/versions/node/v20.20.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ExecStart=/home/ubuntu/.nvm/versions/node/v20.20.1/bin/serve -s build -l 3000
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
