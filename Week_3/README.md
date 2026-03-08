@@ -6,14 +6,24 @@ services on AWS EC2.
 
 ## Architecture
 ```
-Browser
-  ↓ port 3000
-Frontend (React)        → systemd: frontend.service
-  ↓ port 5000
-Backend (Node/Express)  → systemd: backend.service
-  ↓ port 5432
-Database (PostgreSQL)   → systemd: postgresql@14-main
+┌─────────────────┐
+│  React Frontend │  (Port 3000)
+│   (Tier 1)      │
+└────────┬────────┘
+         │ HTTP/REST
+         │
+┌────────▼────────┐
+│ Node.js Backend │  (Port 5000)
+│   (Tier 2)      │
+└────────┬────────┘
+         │ SQL
+         │
+┌────────▼────────┐
+│   PostgreSQL    │  (Port 5432)
+│   (Tier 3)      │
+└─────────────────┘
 ```
+
 
 ## Tech Stack
 - Frontend: React 18
@@ -27,6 +37,7 @@ Database (PostgreSQL)   → systemd: postgresql@14-main
 ### 1. Launched EC2 Instance
 - Ubuntu 22.04 LTS, t2.micro
 - Security group: ports 22, 80, 3000, 5000, 5432
+- Storage: 20GB
 
 ### 2. Installed Dependencies
 ```bash
@@ -50,14 +61,14 @@ Created `backend/.env`:
 PORT=5000
 DB_HOST=localhost
 DB_USER=abdul
-DB_PASS=
-DB_NAME=
+DB_PASS=your_postgres_password
+DB_NAME=ecommercedb
 ```
 
 ### 5. Built Frontend
 Fixed hardcoded localhost URL in App.js:
 ```javascript
-// Before (broken)
+// Before (developer hardcoded directly in App.js)
 const API = "http://localhost:5000";
 
 // After (correct)
@@ -86,7 +97,7 @@ sudo systemctl start frontend.service
 ### 8. Verified Auto-Start After Reboot
 ```bash
 sudo reboot
-# After reboot - all services came back automatically
+# After reboot all services came back automatically
 sudo systemctl status postgresql@14-main
 sudo systemctl status backend.service
 sudo systemctl status frontend.service
@@ -101,7 +112,7 @@ sudo systemctl enable <service>        # auto-start on boot
 sudo systemctl daemon-reload           # reload after editing service files
 ```
 
-## Errors Encountered & Fixed
+## Errors I Encountered & Fixed
 | Error | Cause | Fix |
 |---|---|---|
 | Database "ecommerceDB" does not exist | PostgreSQL lowercased the name | Used lowercase `ecommercedb` in .env |
@@ -113,7 +124,7 @@ sudo systemctl daemon-reload           # reload after editing service files
 - Service files live in `/etc/systemd/system/`
 - `After=` and `Requires=` control service dependency order
 - `journalctl` is the systemd log viewer for debugging
-- React bakes `.env` values at build time — source code takes priority
+- Hardcoded values override environment variables and break environment-specific deployments.
 
 
 ## Files
