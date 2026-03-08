@@ -1,6 +1,4 @@
 # Week 2 — Platform Deployment with systemd
-
-## Objective
 Deploy a three-tier e-commerce application as Linux systemd 
 services on AWS EC2.
 
