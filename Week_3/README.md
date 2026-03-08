@@ -1,6 +1,4 @@
 # Week 2 — Platform Deployment with systemd
-
-## Objective
 Deploy a three-tier e-commerce application as Linux systemd 
 services on AWS EC2.
 
@@ -26,9 +24,9 @@ services on AWS EC2.
 
 
 ## Tech Stack
-- Frontend: React 18
-- Backend: Node.js, Express.js
-- Database: PostgreSQL 14
+- Frontend: React, Axios, CSS3
+- Backend: Node.js, Express.js, pg (node-postgres)
+- Database: PostgreSQL
 - Server: AWS EC2 (Ubuntu 22.04, t2.micro)
 - Service Manager: systemd
 
@@ -71,7 +69,7 @@ Fixed hardcoded localhost URL in App.js:
 // Before (developer hardcoded directly in App.js)
 const API = "http://localhost:5000";
 
-// After (correct)
+// After (correction)
 const API = process.env.REACT_APP_API_URL || "http://localhost:5000";
 ```
 
