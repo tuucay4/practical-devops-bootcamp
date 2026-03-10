@@ -1,0 +1,56 @@
+services:
+  postgresql:
+    image: postgres:16-alpine
+    container_name: ecommerce_db
+    restart: always
+    ports:
+      - 5432:5432
+    env_file: .env
+    environment:
+      POSTGRES_DB: '${DB_NAME}'
+      POSTGRES_USER: '${DB_USER}'
+      POSTGRES_PASSWORD: '${DB_PASS}'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ecommerceNetwork
+
+  nodejs-backend:
+    build:
+      context: ./backend
+      dockerfile: dockerfile
+    container_name: ecommerce_backend
+    restart: always
+    ports:
+      - 5000:5000
+    env_file: .env
+    environment:
+      DB_HOST: '${DB_HOST}'
+      DB_USER: '${DB_USER}'
+      DB_PASS: '${DB_PASS}'
+      DB_NAME: '${DB_NAME}'
+    networks:
+      - ecommerceNetwork
+    depends_on:
+      - postgresql
+
+  
+  react-frontend:
+    build:
+      context: ./frontend
+      dockerfile: dockerfile
+    container_name: ecommerce_frontend
+    ports:
+      - 3000:80
+    networks:
+      - ecommerceNetwork
+    depends_on:
+      - nodejs-backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data: {}
+
+networks:
+  ecommerceNetwork:
+    driver: bridge
