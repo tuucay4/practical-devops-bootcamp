@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'Week_5/**'
+      - '.github/workflows/**'
 
 jobs:
   build-and-push:
