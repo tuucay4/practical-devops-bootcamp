@@ -32,7 +32,7 @@ services:
     depends_on:
       - postgresql
 
-  
+  # React Frontend Service
   react-frontend:
     image: tuucay4/ecommerce-frontend:latest 
     container_name: ecommerce_frontend
