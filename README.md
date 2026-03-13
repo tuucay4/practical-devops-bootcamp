@@ -10,3 +10,5 @@ Handson AWS DevOps bootcamp documenting my deployments and practices.
 03 Deploy 3-tier Application as systemd service on EC2
 
 04 Run Multi-tier Application with Docker
+
+05 Run CI/CD Pipeline + Docker
