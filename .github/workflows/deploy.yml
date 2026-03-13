@@ -66,6 +66,8 @@ jobs:
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
         run: |
+            mkdir -p /home/ubuntu/app/Week_5
+            
             cd ~/app/Week_5
 
             # Pull latest images
