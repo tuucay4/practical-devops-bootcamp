@@ -69,7 +69,7 @@ jobs:
         run: |
             mkdir -p /home/ubuntu/app/Week_5
             
-            cd ~/app/Week_5
+            cd /home/ubuntu/app/Week_5
 
             # Pull latest images
             docker compose pull
