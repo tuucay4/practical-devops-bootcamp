@@ -15,7 +15,7 @@ services:
     networks:
       - ecommerceNetwork
 
-  # Node.js Backend Service
+  
   nodejs-backend:
     image: tuucay4/ecommerce-backend:latest 
     container_name: ecommerce_backend
