@@ -63,21 +63,21 @@ jobs:
           strip_components: 1
 
       - name: Deploy to EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-          HOST: ${{ secrets.EC2_HOST }}
-          USER: ${{ secrets.EC2_USER }}
-        run: |
-          whoami
-          pwd
-          echo "Connected to EC2 instance at $HOST as $USER"
-            # cd /home/ubuntu/app
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            echo "Connected to EC2 instance at $HOST as $USER"
+            
+            cd /home/ubuntu/app/Week_5
 
-            # # Pull latest images
-            # docker compose pull
+            # Pull latest images
+            docker compose pull
 
-            # # Restart containers with zero downtime
-            # docker compose up -d --remove-orphans
+            # Restart containers with zero downtime
+            docker compose up -d --remove-orphans
 
-            # # Clean up old images
-            # docker image prune -f
+            # Clean up old images
+            docker image prune -f
