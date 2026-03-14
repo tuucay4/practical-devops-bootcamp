@@ -68,14 +68,16 @@ jobs:
           HOST: ${{ secrets.EC2_HOST }}
           USER: ${{ secrets.EC2_USER }}
         run: |
+          whoami
+          pwd
+          echo "Connected to EC2 instance at $HOST as $USER"
+            # cd /home/ubuntu/app
 
-            cd /home/ubuntu/app
+            # # Pull latest images
+            # docker compose pull
 
-            # Pull latest images
-            docker compose pull
+            # # Restart containers with zero downtime
+            # docker compose up -d --remove-orphans
 
-            # Restart containers with zero downtime
-            docker compose up -d --remove-orphans
-
-            # Clean up old images
-            docker image prune -f
+            # # Clean up old images
+            # docker image prune -f
