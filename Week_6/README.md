@@ -61,30 +61,30 @@ Created two IAM roles required before cluster creation:
   `AmazonEC2ContainerRegistryReadOnly`
 
 ### 2. Created EKS Cluster
-Created `ecommerce-cluster` via AWS Console with:
+Created the `ecommerce-cluster` via AWS Console with:
 - Kubernetes version 1.35
 - Default VPC, all subnets selected
 - Public endpoint access
 
-### 3. Enabled OIDC Provider
+### 3. Created Node Group
+Added worker nodes via EKS Console:
+- EKS automatically launched and joined EC2 instances to the cluster
+
+### 4. Connected kubectl to EKS
+Downloaded cluster credentials to local machine:
+```bash
+aws eks update-kubeconfig \
+  --name ecommerce-cluster \
+  --region us-east-1
+```
+
+### 5. Enabled OIDC Provider
 The OIDC links Kubernetes service accounts to AWS IAM roles, allowing 
 pods to assume IAM roles without hardcoded credentials:
 ```bash
 eksctl utils associate-iam-oidc-provider \
   --cluster ecommerce-cluster \
   --approve \
-  --region us-east-1
-```
-
-### 4. Created Node Group
-Added worker nodes via EKS Console:
-- EKS automatically launched and joined EC2 instances to cluster
-
-### 5. Connected kubectl to EKS
-Downloaded cluster credentials to local machine:
-```bash
-aws eks update-kubeconfig \
-  --name ecommerce-cluster \
   --region us-east-1
 ```
 
@@ -100,7 +100,7 @@ I also created IAM service account with OIDC to give the driver
 permission to create EBS volumes in AWS.
 
 ### 7. Wrote Kubernetes Manifests and Deployed Application
-Created 10 YAML files in `k8s/` directory covering all
+Created 10 YAML files in `kubernetes/` directory covering all
 Kubernetes objects and applied all manifests
 ```bash
 kubectl apply -f namespace.yaml
@@ -132,7 +132,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
 ```
 
 ### 10. Created Ingress Resource
-Defined routing rules — The ALB controller reads this and
+Defined routing rules, the ALB controller reads this and
 creates an AWS ALB automatically:
 
 ```yaml
@@ -161,8 +161,8 @@ spec:
 
 ### Control Plane vs Worker Nodes
 AWS manages the control plane (API server, etcd, scheduler,
-controller manager) in EKS — you never touch it.
-Worker nodes are EC2 instances you manage via node groups.
+controller manager) in EKS.
+Worker nodes are the EC2 instances i manage via node groups.
 
 ### Namespaces
 Logical isolation inside a cluster. All my app resources live
