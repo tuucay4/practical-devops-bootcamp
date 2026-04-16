@@ -12,3 +12,5 @@ Handson AWS DevOps bootcamp documenting my deployments and practices.
 04 Run Multi-tier Application with Docker
 
 05 Run CI/CD Pipeline + Docker
+
+06 Deploy Application on AWS EKS
